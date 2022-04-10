@@ -12,7 +12,7 @@ import { getPackageJson } from "./helpers/getPackageJson";
 import { installDependency } from "./helpers/installDependency";
 yargs
   .scriptName("react-igniter")
-/*   .command(
+  /*   .command(
     "api <submodules..>",
     "Creates an API in the current project.",
     (yargs) => {
@@ -197,7 +197,7 @@ yargs
           },
         ]);
         argv.test = answers.test;
-        argv.t = answers.t;
+        argv.t = answers.test;
         argv.name = answers.name;
         argv.s = answers.style;
         argv.style = answers.style;
@@ -286,42 +286,39 @@ yargs
         argv.typescript = answers.typescript;
         apiGenerator(argv);
       }
-      if(action === "router"){
+      if (action === "router") {
         let version = "";
         try {
           const packageJson = await getPackageJson();
-          const reactRouterDomVersion = packageJson.dependencies['react-router-dom'];
-          if(reactRouterDomVersion === 'latest'){
+          const reactRouterDomVersion =
+            packageJson.dependencies["react-router-dom"];
+          if (reactRouterDomVersion === "latest") {
             version = "v6";
-          
           } else {
-            const [major] = reactRouterDomVersion.split('.')
-            version = `v${major.replace('^', '')}`;
+            const [major] = reactRouterDomVersion.split(".");
+            version = `v${major.replace("^", "")}`;
           }
-        } catch(err) {
-         
-        }
-        if(!version){
+        } catch (err) {}
+        if (!version) {
           try {
-            await installDependency("react-router-dom");
+            await installDependency(
+              "react-router-dom",
+              "npm i react-router react-router-dom"
+            );
             version = "v6";
           } catch (err) {
             return;
           }
-          
         }
-    
+
         const answers = await inquirer.prompt([
           {
             type: "input",
             name: "name",
-            message:
-              "Name of the router file",
-              default: "index",
+            message: "Name of the router file",
+            default: "index",
             validate: (value) => {
-              return value !== ""
-                ? true
-                : "You must at least 1 character name";
+              return value !== "" ? true : "You must at least 1 character name";
             },
           },
           {
@@ -345,7 +342,7 @@ yargs
               { name: "javascript", value: false },
             ],
           },
-          
+
           {
             type: "input",
             name: "routes",
@@ -367,7 +364,7 @@ yargs
               { name: "No", value: false },
             ],
           },
-         
+
           {
             type: "file-tree-selection",
             name: "output",

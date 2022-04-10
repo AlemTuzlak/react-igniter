@@ -1,6 +1,6 @@
 {
   "name": "react-igniter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI for creating react components",
   "main": "build/index.js",
   "dependencies": {
@@ -21,6 +21,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "tsc",
+    "prepublish": "npm run prepare",
     "start": "tsc --watch"
   },
   "repository": {
@@ -30,7 +31,10 @@
   "keywords": [
     "CLI",
     "React",
-    "Generator"
+    "Generator",
+    "React components",
+    "React router",
+    "React api"
   ],
   "bin": {
     "react-igniter": "./build/index.js"
