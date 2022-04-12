@@ -5,7 +5,6 @@
   "main": "build/index.js",
   "dependencies": {
     "chalk": "^4.1.2",
-    "chalk-animation": "^1.3.0",
     "findit2": "^2.2.3",
     "inquirer": "^8.2.2",
     "inquirer-file-tree-selection-prompt": "^1.0.18",
@@ -37,7 +36,7 @@
     "React api"
   ],
   "bin": {
-    "react-igniter": "./build/index.js"
+    "rig": "./build/index.js"
   },
   "author": "Alem Tuzlak",
   "license": "MIT",

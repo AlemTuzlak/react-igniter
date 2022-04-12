@@ -7,12 +7,21 @@ Command line interface built to make writing common react code faster and easier
 
 ## What does it do?
 
-<hr/>
 React-igniter is a lightweight command line interface designed to help you in your everyday work. It offers you a quick way to generate a lot of boilerplate code like routers, api files, and react components.
+
+## What is new?
+
+Release v1.0.2 is out! New features include the following:
+
+1. Added storybook generation to component generator
+2. Added react-igniter config files so you can predefine answers to generator questions
+3. Added initialize react-igniter config command
+4. Added update react-igniter config command
+5. Cleaned up dependencies
+6. Changed the script name to **rig** from **react-igniter** for easier use.
 
 ## What does it generate?
 
-<hr />
 It can generate either `typescript` or `javasript` versions of the following:
 
 - React components
@@ -26,9 +35,10 @@ All of the above features are configurable in what exactly you want to generate 
 React components generator support the following features:
 
 - Naming the component (reflected across all generated files)
-- Adding test files with the first test already set up
+- Adding test files with the first test already set up.
 - Adding styling modules to the component (supports sass, css & styled-components)
-- Choosing between typescript & javascript components
+- Choosing between typescript & javascript components.
+- Adding storybook with the first story already set up.
 
 The generated output will be a folder containing the above mentioned features, the folder content will differ depending on the options you choose.
 
@@ -57,6 +67,10 @@ React api generator supports the following features:
 This generator requires you to have `axios` installed in your project directory. The extended api's you create require the BaseApi import to work, once you generate the BaseApi you can add new files without re-initializing the base api.
 The output will be generated to the `/api` folder.
 
+### **React igniter configs**
+
+Running the config setup will generate a config file in your current project directory with default presets which allows you to skip questions in the CLI, like choosing if you want to generate js/ts each time. Each time a new release is out the config file will be updated accordingly and you can just update it with the command already there.
+
 ## How to get it up and running?
 
 <hr/>
@@ -65,11 +79,11 @@ The whole installation is very simple. To use it you will need to have node inst
 
 `npm install -g react-igniter`
 
-After installation you can run `react-igniter` to get the CLI which will guide you through the process of creating the component you need.
+After installation you can run `rig` to get the CLI which will guide you through the process of creating the component you need.
 
 If you want to directly use it without actually installing it locally you can simply run:
 
-`npx react-igniter`
+`npx rig`
 
 ## Our vision
 
@@ -77,6 +91,6 @@ Our vision with this package is to speed up the every day development process an
 
 ## Feature roadmap
 
-- The goal in the upcoming releases is to add a way for users to add configuration files into their projects in order to avoid repeating questions (eg. typescript or javascript).
 - Adding a form generator with react-hook-form & yup.
-- Improving the feature-set offered by react-component generator (different kinds of exports, adding storybook..)
+- Improving the feature-set offered by react-component generator (different kinds of exports, optional index.js/ts file in component output..)
+- Adding functionality under the hood to streamline the process and make it easier.
