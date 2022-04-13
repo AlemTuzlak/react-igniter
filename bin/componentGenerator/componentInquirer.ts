@@ -12,9 +12,10 @@ interface ComponentInquirerAnswers {
   style: string;
   typescript: boolean;
   output: string;
+  exportType: string;
 }
 export const componentInquirer = async (config?: DefaultConfigType) => {
-  const { test, typescript, name, output, storybook, style } =
+  const { test, typescript, name, output, storybook, style, exportType } =
     await inquirer.prompt<ComponentInquirerAnswers>([
       {
         type: "input",
@@ -57,6 +58,17 @@ export const componentInquirer = async (config?: DefaultConfigType) => {
       },
       {
         type: "list",
+        name: "exportType",
+        default: "named",
+        message: "Do you want a named or default component export?",
+        when: config?.component?.exportType === undefined ?? true,
+        choices: [
+          { name: "named", value: "named" },
+          { name: "default", value: "default" },
+        ],
+      },
+      {
+        type: "list",
         name: "style",
         message: "Choose a styling module for the component:",
         when: config?.component?.style === undefined ?? true,
@@ -76,6 +88,7 @@ export const componentInquirer = async (config?: DefaultConfigType) => {
     test: config?.component?.test ?? test,
     style: config?.component?.style ?? style,
     output: output.replace(process.cwd(), ""),
+    exportType: config?.component?.exportType ?? exportType,
     typescript:
       config?.component?.type !== undefined
         ? config?.component?.type === "typescript"

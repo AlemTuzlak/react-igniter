@@ -3,7 +3,7 @@
 Welcome to **react-igniter**!
 <img src="./react-igniter.png" align="right" height="120px">
 
-Command line interface built to make writing common react code faster and easier.
+Command Line Interface built for writing common React code faster and easier.
 
 ## What does it do?
 
@@ -11,14 +11,11 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release v1.0.2 is out! New features include the following:
+Release v1.0.3 is out! New features include the following:
 
-1. Added storybook generation to component generator
-2. Added react-igniter config files so you can predefine answers to generator questions
-3. Added initialize react-igniter config command
-4. Added update react-igniter config command
-5. Cleaned up dependencies
-6. Changed the script name to **rig** from **react-igniter** for easier use.
+1. Added default and named exports
+
+For a detailed list of features and changes per version visit the CHANGELOG.MD file.
 
 ## What does it generate?
 
@@ -39,6 +36,7 @@ React components generator support the following features:
 - Adding styling modules to the component (supports sass, css & styled-components)
 - Choosing between typescript & javascript components.
 - Adding storybook with the first story already set up.
+- Choosing between default and named component export
 
 The generated output will be a folder containing the above mentioned features, the folder content will differ depending on the options you choose.
 
@@ -73,8 +71,6 @@ Running the config setup will generate a config file in your current project dir
 
 ## How to get it up and running?
 
-<hr/>
-
 The whole installation is very simple. To use it you will need to have node installed and you can pull it in with the following command:
 
 `npm install -g react-igniter`
@@ -85,6 +81,8 @@ If you want to directly use it without actually installing it locally you can si
 
 `npx rig`
 
+After this we recommend first choosing the option to initialize the configuration file and to set your values to whatever you wish for easier generation and a more pleasant experience
+
 ## Our vision
 
 Our vision with this package is to speed up the every day development process and empower developers. We want to create a robust and extensive CLI to support as many cases as possible and to offer a lot of features out of the box.
@@ -92,5 +90,13 @@ Our vision with this package is to speed up the every day development process an
 ## Feature roadmap
 
 - Adding a form generator with react-hook-form & yup.
-- Improving the feature-set offered by react-component generator (different kinds of exports, optional index.js/ts file in component output..)
+- Improving the feature-set offered by react-component generator (optional index.js/ts file in component output..)
 - Adding functionality under the hood to streamline the process and make it easier.
+
+## Developer note
+
+If you like this package and find it useful please do consider giving the project a star on github. If you wish to see some features added feel free to contact the project contributors or submit a feature request on github.
+
+Thank you for your support.
+
+Happy coding!

@@ -1,10 +1,11 @@
 export const DefaultConfig = {
-  version: "1.0.2",
+  version: "1.0.3",
   component: {
     type: "typescript",
     test: true,
     style: "none", // "css", "scss", "styled-components", "none"
     storybook: false,
+    exportType: "named", // "named" , "default"
   },
   api: {
     type: "typescript",

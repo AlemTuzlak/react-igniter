@@ -1,11 +1,17 @@
-export const ComponentStorybook = (name: string, typescript: boolean) => {
+export const ComponentStorybook = (
+  name: string,
+  typescript: boolean,
+  exportType: string = "named"
+) => {
   return [
     `import React from 'react';`,
     ``,
     ...(typescript
       ? [`import { ComponentStory, ComponentMeta } from '@storybook/react';`]
       : []),
-    `import { ${name} } from './${name}';`,
+    `import ${
+      exportType === "named" ? `{ ${name} }` : `${name}`
+    } from './${name}';`,
     ``,
     `export default {`,
     `  title: '${name}',`,

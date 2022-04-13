@@ -6,6 +6,7 @@ import { ComponentTestFile } from "./OutputFiles/ComponentTest";
 import { ComponentStyling } from "./OutputFiles/ComponentStyling";
 import { uppercaseFirstLetter } from "../helpers/uppercaseFirstLetter";
 import { ComponentStorybook } from "./OutputFiles/ComponentStorybook";
+import { indexFile } from "./OutputFiles/indexFile";
 
 export enum StylingOptions {
   CSS = "css",
@@ -20,6 +21,7 @@ export interface ComponentGeneratorArguments {
   output: string;
   storybook: boolean;
   test: boolean;
+  exportType: string;
 }
 const componentGenerator = async (argv: ComponentGeneratorArguments) => {
   const name = uppercaseFirstLetter(argv.name);
@@ -31,18 +33,20 @@ const componentGenerator = async (argv: ComponentGeneratorArguments) => {
     ComponentFile(
       name,
       argv.typescript ?? false,
-      argv.style ?? StylingOptions.NONE
+      argv.style ?? StylingOptions.NONE,
+      argv.exportType
     )
   );
   if (argv.test) {
     fs.writeFileSync(
       path.join(outputPath, `${name}.test.${argv.typescript ? "tsx" : "jsx"}`),
-      ComponentTestFile(name)
+      ComponentTestFile(name, argv.exportType)
     );
   }
+
   fs.writeFileSync(
     path.join(outputPath, `index.${argv.typescript ? "tsx" : "jsx"}`),
-    `export { ${name} } from './${name}';\n`
+    indexFile(name, argv.exportType)
   );
   if (
     argv.style &&
@@ -59,7 +63,7 @@ const componentGenerator = async (argv: ComponentGeneratorArguments) => {
         outputPath,
         `${name}.stories.${argv.typescript ? "tsx" : "jsx"}`
       ),
-      ComponentStorybook(name, argv.typescript)
+      ComponentStorybook(name, argv.typescript, argv.exportType)
     );
   }
   console.log(

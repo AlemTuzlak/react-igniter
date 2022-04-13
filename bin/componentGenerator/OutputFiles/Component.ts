@@ -1,6 +1,11 @@
 import { StylingOptions } from "../componentGenerator";
 
-const ComponentFile = (name: string, typescript: boolean, styling: string) => {
+const ComponentFile = (
+  name: string,
+  typescript: boolean,
+  styling: string,
+  exportType: string = "named"
+) => {
   const generateStylingImport = (styling: string) => {
     switch (styling) {
       case StylingOptions.CSS:
@@ -47,7 +52,7 @@ const ComponentFile = (name: string, typescript: boolean, styling: string) => {
           ``,
         ]
       : []),
-    `export { ${name} };`,
+    `export ${exportType === "named" ? `{ ${name} }` : `default ${name}`};`,
     ``,
   ];
   return Component.join("\n");
