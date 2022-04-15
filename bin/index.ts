@@ -11,14 +11,21 @@ import { apiInquirer } from "./apiGenerator/apiInquirer";
 import { routeInquirer } from "./routeGenerator/routeInquirer";
 import { configGenerator } from "./configGenerator/configGenerator";
 import { inquirer } from "./helpers/inquirerInstance";
-
+import { versionUpdater } from "./helpers/versionUpdater";
 yargs
   .scriptName("rig")
   .command(
     "$0",
     "Run rig to get started",
-    (_) => {},
-    async () => {
+    (argv) => {
+      argv.option("u", {
+        alias: "update",
+        desc: "Update the version of react-igniter",
+        default: false,
+        type: "boolean",
+      });
+    },
+    async (argv) => {
       console.clear();
       console.log(
         chalk.underline.whiteBright.bold(`|  Welcome to React-igniter  |\n`)
@@ -28,6 +35,12 @@ yargs
         config = await getConfigFile();
       } catch (err) {}
 
+      if (argv.u) {
+        const forceExit = await versionUpdater();
+        if (forceExit) {
+          process.exit(0);
+        }
+      }
       const { action } = await inquirer.prompt([
         {
           type: "list",

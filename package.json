@@ -1,6 +1,6 @@
 {
   "name": "react-igniter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLI for creating react components",
   "main": "build/index.js",
   "dependencies": {
@@ -8,6 +8,7 @@
     "findit2": "^2.2.3",
     "inquirer": "^8.2.2",
     "inquirer-file-tree-selection-prompt": "^1.0.18",
+    "ora": "^5.4.1",
     "yargs": "^17.3.0"
   },
   "devDependencies": {

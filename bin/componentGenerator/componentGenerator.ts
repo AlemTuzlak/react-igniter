@@ -22,7 +22,9 @@ export interface ComponentGeneratorArguments {
   storybook: boolean;
   test: boolean;
   exportType: string;
+  includeIndex: boolean;
 }
+
 const componentGenerator = async (argv: ComponentGeneratorArguments) => {
   const name = uppercaseFirstLetter(argv.name);
   const outputPath = path.join(process.cwd(), argv.output ?? "", name);
@@ -44,10 +46,12 @@ const componentGenerator = async (argv: ComponentGeneratorArguments) => {
     );
   }
 
-  fs.writeFileSync(
-    path.join(outputPath, `index.${argv.typescript ? "tsx" : "jsx"}`),
-    indexFile(name, argv.exportType)
-  );
+  if (argv.includeIndex) {
+    fs.writeFileSync(
+      path.join(outputPath, `index.${argv.typescript ? "tsx" : "jsx"}`),
+      indexFile(name, argv.exportType)
+    );
+  }
   if (
     argv.style &&
     (argv.style === StylingOptions.CSS || argv.style === StylingOptions.SCSS)

@@ -11,15 +11,18 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release v1.0.3 is out! New features include the following:
+Release v1.0.4 is out! New features include the following:
 
-1. Added default and named exports
+1. Added possibility to include/exclude index file.
+2. Added the ability to check for package updates by running `rig -u`.
+3. Added the ability to install the latest version of react-igniter to your system.
+4. Extended configuration object to support inclusion of index file.
 
 For a detailed list of features and changes per version visit the CHANGELOG.MD file.
 
 ## What does it generate?
 
-It can generate either `typescript` or `javasript` versions of the following:
+It can generate either `typescript` or `javascript` versions of the following:
 
 - React components
 - React routers (via [React-router](https://reactrouter.com/))
@@ -37,6 +40,7 @@ React components generator support the following features:
 - Choosing between typescript & javascript components.
 - Adding storybook with the first story already set up.
 - Choosing between default and named component export
+- Choosing if you want to include index file that exports the component or not
 
 The generated output will be a folder containing the above mentioned features, the folder content will differ depending on the options you choose.
 
@@ -69,6 +73,10 @@ The output will be generated to the `/api` folder.
 
 Running the config setup will generate a config file in your current project directory with default presets which allows you to skip questions in the CLI, like choosing if you want to generate js/ts each time. Each time a new release is out the config file will be updated accordingly and you can just update it with the command already there.
 
+### **CLI Options**
+
+- `-u` - Adding this flag tells the CLI to check if there is a newer version of the package and if there is, asks you if you want to upgrade.
+
 ## How to get it up and running?
 
 The whole installation is very simple. To use it you will need to have node installed and you can pull it in with the following command:
@@ -81,7 +89,11 @@ If you want to directly use it without actually installing it locally you can si
 
 `npx rig`
 
-After this we recommend first choosing the option to initialize the configuration file and to set your values to whatever you wish for easier generation and a more pleasant experience
+After this we recommend first choosing the option to initialize the configuration file and to set your values to whatever you wish for easier generation and a more pleasant experience.
+
+If you want to check if there are updates to the package and install them you can run the following command:
+
+`rig -u`
 
 ## Our vision
 

@@ -15,6 +15,7 @@ export const Config = (ConfigObject: DefaultConfigType) => {
     `    style: "${component.style}", // Styling module to be generated with the component, string value, ["css", "scss", "styled-components", "none"]`,
     `    storybook: ${component.storybook}, // Should a storybook file be generated, boolean value, [true, false]`,
     `    exportType: "${component.exportType}", // Export type, string value, ["named", "default"]`,
+    `    includeIndex: ${component.includeIndex}, // Should an index file be generated, boolean value, [true, false]`,
     `  },`,
     `// API generation config`,
     `  api: {`,

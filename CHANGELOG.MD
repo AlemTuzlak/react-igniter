@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 15.04.2022.
+
+### Added
+
+- ora dependency for async loading notifications
+- Ability to check for updates with `-u` flag
+- Config option for including index files
+- Component generator include index file option
+
+### Changed
+
+- Extended main application handler to support flags
+- Getting package.json file can now fail without logging errors
+
+### Removed
+
+- Unnecessary files from build artifact
+
 ## [1.0.3] - 14.04.2022.
 
 ### Added
