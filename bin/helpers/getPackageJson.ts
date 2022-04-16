@@ -1,8 +1,8 @@
 import chalk from "chalk";
 
-export const getPackageJson = (failSilently = false) => {
+export const getPackageJson = (path = process.cwd(), failSilently = false) => {
   try {
-    const packageJson = require(`${process.cwd()}/package.json`);
+    const packageJson = require(`${path}/package.json`);
     return packageJson;
   } catch (e) {
     if (!failSilently) {

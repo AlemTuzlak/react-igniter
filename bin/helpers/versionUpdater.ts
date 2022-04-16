@@ -4,6 +4,7 @@ import util from "util";
 import { getPackageJson } from "./getPackageJson";
 import { inquirer } from "./inquirerInstance";
 import { spinnerInstance } from "./spinner";
+import path from "path";
 const execAsync = util.promisify(exec);
 
 export const versionUpdater = async () => {
@@ -12,7 +13,7 @@ export const versionUpdater = async () => {
     const { stdout: version } = await execAsync(
       "npm view react-igniter version"
     );
-    const packageJson = getPackageJson(true);
+    const packageJson = getPackageJson(path.join("..", ".."), true);
     if (version.trim() === packageJson.version) {
       spinner.succeed(` React-igniter is up to date.\n`);
     } else {

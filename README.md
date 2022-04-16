@@ -3,7 +3,7 @@
 Welcome to **react-igniter**!
 <img src="./react-igniter.png" align="right" height="120px">
 
-Command Line Interface built for writing common React code faster and easier.
+Command Line Interface built for generating common React code.
 
 ## What does it do?
 
@@ -11,7 +11,7 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release v1.0.4 is out! New features include the following:
+Release v1.0.5 is out! New features include the following:
 
 1. Added possibility to include/exclude index file.
 2. Added the ability to check for package updates by running `rig -u`.
