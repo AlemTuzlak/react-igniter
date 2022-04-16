@@ -15,7 +15,10 @@ interface ComponentInquirerAnswers {
   exportType: string;
   includeIndex: boolean;
 }
-export const componentInquirer = async (config?: DefaultConfigType) => {
+export const componentInquirer = async (
+  config?: DefaultConfigType,
+  componentName?: string
+) => {
   const {
     test,
     typescript,
@@ -30,6 +33,7 @@ export const componentInquirer = async (config?: DefaultConfigType) => {
       type: "input",
       message: "What is the name of the component?",
       name: "name",
+      when: !componentName,
       validate: (value) => {
         return value !== "" ? true : "You must provide a name";
       },
@@ -105,7 +109,7 @@ export const componentInquirer = async (config?: DefaultConfigType) => {
   ]);
 
   const generatorArgs: ComponentGeneratorArguments = {
-    name: name,
+    name: componentName ?? name,
     test: config?.component?.test ?? test,
     style: config?.component?.style ?? style,
     output: output.replace(process.cwd(), ""),

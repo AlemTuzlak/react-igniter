@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 16.04.2022.
+
+### Added
+
+- CLI command for directly creating the component
+- CLI command for directly creating the router
+- CLI command for directly creating the api
+- CLI command for directly creating the config
+
 ## [1.0.5] - 16.04.2022.
 
 ### Changed

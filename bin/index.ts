@@ -15,8 +15,65 @@ import { versionUpdater } from "./helpers/versionUpdater";
 yargs
   .scriptName("rig")
   .command(
+    "component [name]",
+    "Generate a new component",
+    () => {},
+    async (argv) => {
+      let config: DefaultConfigType | undefined;
+      try {
+        config = await getConfigFile();
+      } catch (err) {}
+      console.log(argv);
+      await componentInquirer(config, argv.name as string | undefined);
+    }
+  )
+  .command(
+    "router",
+    "Generate a router",
+    () => {},
+    async () => {
+      let config: DefaultConfigType | undefined;
+      try {
+        config = await getConfigFile();
+      } catch (err) {}
+      await routeInquirer(config);
+    }
+  )
+  .command(
+    "api",
+    "Generate an api",
+    () => {},
+    async () => {
+      let config: DefaultConfigType | undefined;
+      try {
+        config = await getConfigFile();
+      } catch (err) {}
+      await apiInquirer(config);
+    }
+  )
+  .command(
+    "config",
+    "Generate react-igniter configuration",
+    () => {},
+    async () => {
+      let config: DefaultConfigType | undefined;
+      try {
+        config = await getConfigFile();
+      } catch (err) {}
+      if (config?.version !== DefaultConfig.version || !config) {
+        await configGenerator(config);
+      } else {
+        console.log(
+          chalk.greenBright(
+            "\nYou have the latest version of react-igniter configuration file.\n "
+          )
+        );
+      }
+    }
+  )
+  .command(
     "$0",
-    "Run rig to get started",
+    "Gets the list of all the commands",
     (argv) => {
       argv.option("u", {
         alias: "update",

@@ -11,12 +11,12 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release v1.0.5 is out! New features include the following:
+Release v1.0.6 is out! New features include the following:
 
-1. Added possibility to include/exclude index file.
-2. Added the ability to check for package updates by running `rig -u`.
-3. Added the ability to install the latest version of react-igniter to your system.
-4. Extended configuration object to support inclusion of index file.
+1. Added shortcut for getting into component creation `rig component [name]`
+2. Added shortcut for getting into api creation `rig api`
+3. Added shortcut for getting into router creation `rig router`
+4. Added shortcut for getting into config creation `rig config`
 
 For a detailed list of features and changes per version visit the CHANGELOG.MD file.
 
@@ -75,7 +75,11 @@ Running the config setup will generate a config file in your current project dir
 
 ### **CLI Options**
 
-- `-u` - Adding this flag tells the CLI to check if there is a newer version of the package and if there is, asks you if you want to upgrade.
+- `rig -u` - Adding this flag tells the CLI to check if there is a newer version of the package and if there is, asks you if you want to upgrade.
+- `rig component [name]` - Shortcut for getting into the component creation command, optional name parameter, if provided the name will be set to the provided parameter
+- `rig router` - Shortcut for getting into the router creation command
+- `rig api` - Shortcut for getting into the api creation command
+- `rig config` - Shortcut for getting into the config creation command
 
 ## How to get it up and running?
 
