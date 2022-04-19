@@ -12,43 +12,67 @@ import { routeInquirer } from "./routeGenerator/routeInquirer";
 import { configGenerator } from "./configGenerator/configGenerator";
 import { inquirer } from "./helpers/inquirerInstance";
 import { versionUpdater } from "./helpers/versionUpdater";
+
 yargs
   .scriptName("rig")
   .command(
     "component [name]",
     "Generate a new component",
-    () => {},
+    (yargs) => {
+      yargs.option("i", {
+        alias: "ignore-config",
+        describe: "Ignore config file",
+        type: "boolean",
+        default: false,
+      });
+    },
     async (argv) => {
       let config: DefaultConfigType | undefined;
       try {
         config = await getConfigFile();
       } catch (err) {}
-      console.log(argv);
-      await componentInquirer(config, argv.name as string | undefined);
+      await componentInquirer(
+        argv.i ? undefined : config,
+        argv.name as string | undefined
+      );
     }
   )
   .command(
     "router",
     "Generate a router",
-    () => {},
-    async () => {
+    (yargs) => {
+      yargs.option("i", {
+        alias: "ignore-config",
+        describe: "Ignore config file",
+        type: "boolean",
+        default: false,
+      });
+    },
+    async (argv) => {
       let config: DefaultConfigType | undefined;
       try {
         config = await getConfigFile();
       } catch (err) {}
-      await routeInquirer(config);
+      await routeInquirer(argv.i ? undefined : config);
     }
   )
   .command(
     "api",
     "Generate an api",
-    () => {},
-    async () => {
+    (yargs) => {
+      yargs.option("i", {
+        alias: "ignore-config",
+        describe: "Ignore config file",
+        type: "boolean",
+        default: false,
+      });
+    },
+    async (argv) => {
       let config: DefaultConfigType | undefined;
       try {
         config = await getConfigFile();
       } catch (err) {}
-      await apiInquirer(config);
+      await apiInquirer(argv.i ? undefined : config);
     }
   )
   .command(
@@ -74,12 +98,18 @@ yargs
   .command(
     "$0",
     "Gets the list of all the commands",
-    (argv) => {
-      argv.option("u", {
+    (yargs) => {
+      yargs.option("u", {
         alias: "update",
         desc: "Update the version of react-igniter",
         default: false,
         type: "boolean",
+      });
+      yargs.option("i", {
+        alias: "ignore-config",
+        describe: "Ignore config file",
+        type: "boolean",
+        default: false,
       });
     },
     async (argv) => {
@@ -122,13 +152,13 @@ yargs
         },
       ]);
       if (action === "component") {
-        await componentInquirer(config);
+        await componentInquirer(argv.i ? undefined : config);
       }
       if (action === "api") {
-        await apiInquirer(config);
+        await apiInquirer(argv.i ? undefined : config);
       }
       if (action === "router") {
-        await routeInquirer(config);
+        await routeInquirer(argv.i ? undefined : config);
       }
       if (action === "config") {
         await configGenerator(config);

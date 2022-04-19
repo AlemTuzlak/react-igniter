@@ -11,12 +11,14 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release v1.0.6 is out! New features include the following:
+Release v1.0.7 is out! New features include the following:
 
-1. Added shortcut for getting into component creation `rig component [name]`
-2. Added shortcut for getting into api creation `rig api`
-3. Added shortcut for getting into router creation `rig router`
-4. Added shortcut for getting into config creation `rig config`
+1. Added ignore config flag to component generator `rig component -i`
+1. Added ignore config flag to api generator `rig api -i`
+1. Added ignore config flag to router generator `rig router -i`
+1. Added ignore config flag to main generator `rig -i`
+
+If you need to create a component that is different than the standard config you set you can just run the command with the `-i` flag and it will ignore the config file.
 
 For a detailed list of features and changes per version visit the CHANGELOG.MD file.
 
@@ -73,6 +75,9 @@ The output will be generated to the `/api` folder.
 
 Running the config setup will generate a config file in your current project directory with default presets which allows you to skip questions in the CLI, like choosing if you want to generate js/ts each time. Each time a new release is out the config file will be updated accordingly and you can just update it with the command already there.
 
+To ignore your default configuration settings run any of the generators with the
+`-i` flag and it will ignore the config file and ask you all the questions.
+
 ### **CLI Options**
 
 - `rig -u` - Adding this flag tells the CLI to check if there is a newer version of the package and if there is, asks you if you want to upgrade.
@@ -106,8 +111,8 @@ Our vision with this package is to speed up the every day development process an
 ## Feature roadmap
 
 - Adding a form generator with react-hook-form & yup.
-- Improving the feature-set offered by react-component generator (optional index.js/ts file in component output..)
-- Adding functionality under the hood to streamline the process and make it easier.
+- Improving the feature-set offered by react-component generator (adding translations, react-query support etc.)
+- Adding functionalities under the hood to streamline the process and make it easier. (Additional commands, flags etc.)
 
 ## Developer note
 

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.7] - 19.04.2022.
+
+### Added
+
+- CLI ignore config flag on api generator
+- CLI ignore config flag on router generator
+- CLI ignore config flag on component generator
+- CLI ignore config flag on main generator
+
 ## [1.0.6] - 16.04.2022.
 
 ### Added
