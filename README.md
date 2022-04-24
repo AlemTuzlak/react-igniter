@@ -11,14 +11,11 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release v1.0.7 is out! New features include the following:
+Release v1.0.8 is out! New features include the following:
 
-1. Added ignore config flag to component generator `rig component -i`
-1. Added ignore config flag to api generator `rig api -i`
-1. Added ignore config flag to router generator `rig router -i`
-1. Added ignore config flag to main generator `rig -i`
+1. Added optional translations inclusion. Translations used are from [i18n](https://react.i18next.com/) package.
 
-If you need to create a component that is different than the standard config you set you can just run the command with the `-i` flag and it will ignore the config file.
+If you opt into using translations during generation it requires you to have i18n package already installed, or it installs it for you. Further setup is up to you.
 
 For a detailed list of features and changes per version visit the CHANGELOG.MD file.
 
@@ -42,6 +39,7 @@ React components generator support the following features:
 - Choosing between typescript & javascript components.
 - Adding storybook with the first story already set up.
 - Choosing between default and named component export
+- Choosing if you want to include the useTranslations hook from i18n
 - Choosing if you want to include index file that exports the component or not
 
 The generated output will be a folder containing the above mentioned features, the folder content will differ depending on the options you choose.

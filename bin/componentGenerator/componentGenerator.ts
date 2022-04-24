@@ -23,6 +23,7 @@ export interface ComponentGeneratorArguments {
   test: boolean;
   exportType: string;
   includeIndex: boolean;
+  translations: boolean;
 }
 
 const componentGenerator = async (argv: ComponentGeneratorArguments) => {
@@ -36,7 +37,8 @@ const componentGenerator = async (argv: ComponentGeneratorArguments) => {
       name,
       argv.typescript ?? false,
       argv.style ?? StylingOptions.NONE,
-      argv.exportType
+      argv.exportType,
+      argv.translations
     )
   );
   if (argv.test) {

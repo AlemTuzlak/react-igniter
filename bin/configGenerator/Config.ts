@@ -16,6 +16,7 @@ export const Config = (ConfigObject: DefaultConfigType) => {
     `    storybook: ${component.storybook}, // Should a storybook file be generated, boolean value, [true, false]`,
     `    exportType: "${component.exportType}", // Export type, string value, ["named", "default"]`,
     `    includeIndex: ${component.includeIndex}, // Should an index file be generated, boolean value, [true, false]`,
+    `    translations: ${component.translations}, // Should translations be generated, boolean value, [true, false]`,
     `  },`,
     `// API generation config`,
     `  api: {`,

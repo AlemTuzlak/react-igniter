@@ -1,5 +1,6 @@
 import { DefaultConfigType } from "../configGenerator/DefaultConfig";
 import { inquirer } from "../helpers/inquirerInstance";
+import { installDependency } from "../helpers/installDependency";
 import {
   componentGenerator,
   ComponentGeneratorArguments,
@@ -14,6 +15,7 @@ interface ComponentInquirerAnswers {
   output: string;
   exportType: string;
   includeIndex: boolean;
+  translations: boolean;
 }
 export const componentInquirer = async (
   config?: DefaultConfigType,
@@ -28,6 +30,7 @@ export const componentInquirer = async (
     style,
     exportType,
     includeIndex,
+    translations,
   } = await inquirer.prompt<ComponentInquirerAnswers>([
     {
       type: "input",
@@ -71,6 +74,18 @@ export const componentInquirer = async (
     },
     {
       type: "list",
+      name: "translations",
+      default: false,
+      message:
+        "Do you want to include translations hook (uses i18n) in the component?",
+      when: config?.component?.translations === undefined ?? true,
+      choices: [
+        { name: "Yes", value: true },
+        { name: "No", value: false },
+      ],
+    },
+    {
+      type: "list",
       name: "includeIndex",
       default: true,
       message: "Do you want to create an index file?",
@@ -108,12 +123,23 @@ export const componentInquirer = async (
     },
   ]);
 
+  if (config?.component?.translations || translations) {
+    try {
+      await installDependency(
+        "react-i18next",
+        "npm install react-i18next i18next"
+      );
+    } catch (e) {
+      return;
+    }
+  }
   const generatorArgs: ComponentGeneratorArguments = {
     name: componentName ?? name,
     test: config?.component?.test ?? test,
     style: config?.component?.style ?? style,
     output: output.replace(process.cwd(), ""),
     exportType: config?.component?.exportType ?? exportType,
+    translations: config?.component?.translations ?? translations,
     typescript:
       config?.component?.type !== undefined
         ? config?.component?.type === "typescript"

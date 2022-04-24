@@ -4,7 +4,8 @@ const ComponentFile = (
   name: string,
   typescript: boolean,
   styling: string,
-  exportType: string = "named"
+  exportType: string = "named",
+  translations: boolean = false
 ) => {
   const generateStylingImport = (styling: string) => {
     switch (styling) {
@@ -35,10 +36,14 @@ const ComponentFile = (
 
   const Component = [
     `import React${typescript ? `, { FC }` : ""} from 'react';`,
+    ...(translations
+      ? ["import { useTranslation } from 'react-i18next';"]
+      : []),
     `${generateStylingImport(styling)}`,
     "",
     ...(typescript ? [`interface ${name}Props {`, `  `, `}`, ``] : []),
     `const ${name}${typescript ? `: FC<${name}Props>` : ``} = () => {`,
+    ...(translations ? ["  const { t } = useTranslation();"] : []),
     `  return (`,
     ...generateStyledComponent(styling),
     `  );`,

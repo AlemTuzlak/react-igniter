@@ -1,5 +1,5 @@
 export const DefaultConfig = {
-  version: "1.0.4",
+  version: "1.0.8",
   component: {
     type: "typescript",
     test: true,
@@ -7,6 +7,7 @@ export const DefaultConfig = {
     storybook: false,
     exportType: "named", // "named" , "default"
     includeIndex: true,
+    translations: false,
   },
   api: {
     type: "typescript",
