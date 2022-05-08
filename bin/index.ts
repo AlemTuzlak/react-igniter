@@ -12,6 +12,7 @@ import { routeInquirer } from "./routeGenerator/routeInquirer";
 import { configGenerator } from "./configGenerator/configGenerator";
 import { inquirer } from "./helpers/inquirerInstance";
 import { versionUpdater } from "./helpers/versionUpdater";
+import { formInquirer } from "./formGenerator/formInquirer";
 
 yargs
   .scriptName("rig")
@@ -138,12 +139,13 @@ yargs
             { name: "1. Create Component", value: "component" },
             { name: "2. Create Router", value: "router" },
             { name: "3. Create Api(s)", value: "api" },
+            { name: "4. Create Form", value: "form" },
             ...(config?.version !== DefaultConfig.version || !config
               ? [
                   {
                     name: config
-                      ? "4. Update configuration"
-                      : "4. Initialize configuration",
+                      ? "5. Update configuration"
+                      : "5. Initialize configuration",
                     value: "config",
                   },
                 ]
@@ -159,6 +161,9 @@ yargs
       }
       if (action === "router") {
         await routeInquirer(argv.i ? undefined : config);
+      }
+      if (action === "form") {
+        await formInquirer(argv.i ? undefined : config);
       }
       if (action === "config") {
         await configGenerator(config);

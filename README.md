@@ -7,17 +7,20 @@ Command Line Interface built for generating common React code.
 
 ## What does it do?
 
-React-igniter is a lightweight command line interface designed to help you in your everyday work. It offers you a quick way to generate a lot of boilerplate code like routers, api files, and react components.
+React-igniter is a lightweight command line interface designed to help you in your everyday work. It offers you a quick way to generate a lot of boilerplate code like forms, routers, api files, and react components.
 
 ## What is new?
 
-Release v1.0.8 is out! New features include the following:
+Release **v1.1.0** is out! New features include the following:
 
-1. Added optional translations inclusion. Translations used are from [i18n](https://react.i18next.com/) package.
+1. Added a new form generator. Generator uses [react-hook-form](https://react-hook-form.com/) package to generate forms.
+2. Form generator supports both typescript and javascript
+3. Optional form context wrapper
+4. Per field form validation configuration
+5. Configurable validation modes (onChange, onBlur...)
+6. Per field choice between selects, inputs, checkboxes, radios and textareas
 
-If you opt into using translations during generation it requires you to have i18n package already installed, or it installs it for you. Further setup is up to you.
-
-For a detailed list of features and changes per version visit the CHANGELOG.MD file.
+The form generation feature is finally introduced in this version of react-igniter! Now you are able to create forms with [react-hook-form](https://react-hook-form.com/) with per field configurations for field type and field validation. The **v1.1.X** versions of react-igniter will be focused on new form generation features. Roadmap will be updated accordingly!
 
 ## What does it generate?
 
@@ -26,6 +29,7 @@ It can generate either `typescript` or `javascript` versions of the following:
 - React components
 - React routers (via [React-router](https://reactrouter.com/))
 - React Api files (via [Axios](https://axios-http.com/))
+- React forms (via [react-hook-form](https://react-hook-form.com/))
 
 All of the above features are configurable in what exactly you want to generate by choosing the different options in the actual CLI.
 
@@ -69,6 +73,26 @@ React api generator supports the following features:
 This generator requires you to have `axios` installed in your project directory. The extended api's you create require the BaseApi import to work, once you generate the BaseApi you can add new files without re-initializing the base api.
 The output will be generated to the `/api` folder.
 
+### **React forms**
+
+React forms generator supports the following features:
+
+- Selection between typescript/javascript versions
+- Naming the form component
+- Choosing if you want to wrap the form with a context provider
+- Output directory of the form
+- Adding a list of fields that the form will have
+- Choosing if the form should have validation or not
+- Choosing validation mode and revalidation mode
+
+After all these have been selected each field offers the following features:
+
+- Selecting the type of component (input, textarea, checkbox, radio, select)
+- If the input component is selected you can choose the subtype (email, password, url, date, datetime, text...)
+- If form is validated you can choose validation rules (required, min, max, regex, custom, minLength, maxLength)
+
+After all the options have been chosen the form will be generated.
+
 ### **React igniter configs**
 
 Running the config setup will generate a config file in your current project directory with default presets which allows you to skip questions in the CLI, like choosing if you want to generate js/ts each time. Each time a new release is out the config file will be updated accordingly and you can just update it with the command already there.
@@ -108,9 +132,12 @@ Our vision with this package is to speed up the every day development process an
 
 ## Feature roadmap
 
-- Adding a form generator with react-hook-form & yup.
-- Improving the feature-set offered by react-component generator (adding translations, react-query support etc.)
-- Adding functionalities under the hood to streamline the process and make it easier. (Additional commands, flags etc.)
+- Adding new configuration options for form generator to speed up the generation process
+- Adding Control component option to form generator
+- Adding yup validation as an option
+- Adding inputArray option with **useFieldArray** hook
+- Streamlining the generation process and improving the UX
+- Adding some behind the scenes features to improve the generator (default validators for subtypes etc.)
 
 ## Developer note
 
