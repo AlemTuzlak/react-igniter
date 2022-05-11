@@ -58,6 +58,8 @@ interface FormInquirerAnswers {
   fields: string;
   output: string;
   typescript: boolean;
+  exportType: string;
+  includeIndex: boolean;
 }
 
 export const formInquirer = async (config?: DefaultConfigType) => {
@@ -86,6 +88,28 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       choices: [
         { name: "typescript", value: true },
         { name: "javascript", value: false },
+      ],
+    },
+    {
+      type: "list",
+      name: "includeIndex",
+      default: true,
+      message: "Do you want to create an index file?",
+      //when: config?.component?.includeIndex === undefined ?? true,
+      choices: [
+        { name: "Yes", value: true },
+        { name: "No", value: false },
+      ],
+    },
+    {
+      type: "list",
+      name: "exportType",
+      default: "named",
+      message: "Do you want a named or default component export?",
+      //when: config?.component?.exportType === undefined ?? true,
+      choices: [
+        { name: "named", value: "named" },
+        { name: "default", value: "default" },
       ],
     },
     {

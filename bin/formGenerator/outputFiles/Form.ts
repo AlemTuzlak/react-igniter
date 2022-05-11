@@ -1,6 +1,6 @@
-import { padFront } from "../helpers/padFront";
-import { uppercaseFirstLetter } from "../helpers/uppercaseFirstLetter";
-import { Field, RevalidationMode, ValidationMode } from "./formInquirer";
+import { padFront } from "../../helpers/padFront";
+import { uppercaseFirstLetter } from "../../helpers/uppercaseFirstLetter";
+import { Field, RevalidationMode, ValidationMode } from "../formInquirer";
 
 export const Form = (
   name: string,
@@ -9,7 +9,8 @@ export const Form = (
   withContext: boolean = false,
   withValidation: boolean = false,
   validationMode: ValidationMode = "onSubmit",
-  revalidationMode: RevalidationMode = "onChange"
+  revalidationMode: RevalidationMode = "onChange",
+  exportType: string = "named"
 ) => {
   const formFieldsPadding = withContext ? 2 : 0;
   return [
@@ -72,7 +73,8 @@ export const Form = (
     padFront(`)`, 2),
     `}`,
     ``,
-    `export { ${name} };`,
+    `export ${exportType === "named" ? `{ ${name} }` : `default ${name}`};`,
+    ,
   ].join("\n");
 };
 

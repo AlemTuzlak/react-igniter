@@ -3,7 +3,8 @@ import path from "path";
 import chalk from "chalk";
 import { uppercaseFirstLetter } from "../helpers/uppercaseFirstLetter";
 import { Field, RevalidationMode, ValidationMode } from "./formInquirer";
-import { Form } from "./Form";
+import { Form } from "./outputFiles/Form";
+import { indexFile } from "./outputFiles/indexFile";
 
 export interface FormGeneratorArguments {
   name: string;
@@ -14,6 +15,8 @@ export interface FormGeneratorArguments {
   validationMode: ValidationMode;
   revalidationMode: RevalidationMode;
   fields: Field[];
+  exportType: string;
+  includeIndex: boolean;
 }
 
 const formGenerator = async ({
@@ -25,6 +28,8 @@ const formGenerator = async ({
   validationMode,
   revalidationMode,
   fields,
+  includeIndex,
+  exportType,
 }: FormGeneratorArguments) => {
   const finalName = uppercaseFirstLetter(name);
   const outputPath = path.join(output ?? process.cwd(), finalName);
@@ -42,8 +47,13 @@ const formGenerator = async ({
       revalidationMode
     )
   );
-
-  console.log(chalk.bold.green(`Generated ${name} form successfully!`));
+  if (includeIndex) {
+    fs.writeFileSync(
+      path.join(outputPath, `index.${typescript ? "tsx" : "jsx"}`),
+      indexFile(finalName, exportType)
+    );
+  }
+  console.log(chalk.bold.green(`Generated ${finalName} form successfully!`));
 };
 
 export { formGenerator };
