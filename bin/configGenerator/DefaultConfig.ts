@@ -1,5 +1,5 @@
 export const DefaultConfig = {
-  version: "1.0.8",
+  version: "1.1.2",
   component: {
     type: "typescript",
     test: true,
@@ -19,6 +19,15 @@ export const DefaultConfig = {
     main: true,
     type: "typescript",
     withTabs: false,
+  },
+  form: {
+    withContext: false,
+    withValidation: true,
+    type: "typescript",
+    validationMode: "onSubmit", // "onSubmit", "onChange", "onBlur", "all", "onTouched"
+    revalidationMode: "onChange", // "onChange", "onBlur", "onSubmit"
+    exportType: "named", // "named" , "default"
+    includeIndex: true,
   },
 };
 

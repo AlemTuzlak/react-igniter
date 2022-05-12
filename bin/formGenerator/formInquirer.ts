@@ -84,7 +84,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       name: "typescript",
       default: false,
       message: "Do you want to generate typescript or javascript modules?",
-      when: config?.api?.type === undefined ?? true,
+      when: config?.form?.type === undefined ?? true,
       choices: [
         { name: "typescript", value: true },
         { name: "javascript", value: false },
@@ -95,7 +95,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       name: "includeIndex",
       default: true,
       message: "Do you want to create an index file?",
-      //when: config?.component?.includeIndex === undefined ?? true,
+      when: config?.form?.includeIndex === undefined ?? true,
       choices: [
         { name: "Yes", value: true },
         { name: "No", value: false },
@@ -106,7 +106,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       name: "exportType",
       default: "named",
       message: "Do you want a named or default component export?",
-      //when: config?.component?.exportType === undefined ?? true,
+      when: config?.form?.exportType === undefined ?? true,
       choices: [
         { name: "named", value: "named" },
         { name: "default", value: "default" },
@@ -117,6 +117,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       name: "withContext",
       message: "Do you want to wrap the form with FormContextProvider?",
       default: false,
+      when: config?.form?.withContext === undefined ?? true,
       choices: [
         { name: "Yes", value: true },
         { name: "No", value: false },
@@ -127,6 +128,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       name: "withValidation",
       message: "Do you want to validate the form?",
       default: true,
+      when: config?.form?.withValidation === undefined ?? true,
       choices: [
         { name: "Yes", value: true },
         { name: "No", value: false },
@@ -137,7 +139,8 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       name: "validationMode",
       message: "When will the validation be triggered?",
       default: "onSubmit",
-      when: (ans) => ans.withValidation,
+      when: (ans) =>
+        ans.withValidation && config?.form?.validationMode === undefined,
       choices: [
         {
           value: "onSubmit",
@@ -177,7 +180,8 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       message:
         "When will the validation be triggered after the form is submitted?",
       default: "onChange",
-      when: (ans) => ans.withValidation,
+      when: (ans) =>
+        ans.withValidation && config?.form?.revalidationMode === undefined,
       choices: [
         {
           value: "onSubmit",
@@ -222,6 +226,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
   const finalFields: Field[] = [];
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i];
+    console.log(config?.form.withValidation, answers.withValidation);
     const fieldAnswers = await inquirer.prompt<FormFieldAnswers>([
       {
         type: "list",
@@ -258,7 +263,9 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       {
         type: "checkbox",
         name: "validation",
-        when: answers.withValidation,
+        when:
+          config?.form?.withValidation === true ||
+          answers.withValidation === true,
         choices: [
           { value: "required", name: "Required" },
           { value: "min", name: "Min" },
@@ -310,10 +317,21 @@ export const formInquirer = async (config?: DefaultConfigType) => {
   }
 
   const finalOutput = {
-    ...answers,
     name: removeWhitespace(answers.name),
     fields: finalFields,
-    typescript: answers.typescript,
+    typescript:
+      config?.form?.type !== undefined
+        ? config?.form?.type === "typescript"
+        : answers.typescript,
+    withValidation: config?.form?.withValidation ?? answers.withValidation,
+    validationMode: (config?.form?.validationMode ??
+      answers.validationMode) as ValidationMode,
+    revalidationMode: (config?.form?.revalidationMode ??
+      answers.revalidationMode) as RevalidationMode,
+    includeIndex: config?.form?.includeIndex ?? answers.includeIndex,
+    output: answers.output.replace(process.cwd(), ""),
+    withContext: config?.form?.withContext ?? answers.withContext,
+    exportType: config?.form?.exportType ?? answers.exportType,
   };
 
   await formGenerator(finalOutput);

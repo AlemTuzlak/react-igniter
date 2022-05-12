@@ -25,6 +25,7 @@ export const configGenerator = async (config?: DefaultConfigType) => {
           api: { ...DefaultConfig.api, ...config.api },
           component: { ...DefaultConfig.component, ...config.component },
           router: { ...DefaultConfig.router, ...config.router },
+          form: { ...DefaultConfig.form, ...config.form },
         })
       );
       console.log(

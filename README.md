@@ -11,18 +11,14 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release **v1.1.1** is out! New features include the following:
+Release **v1.1.2** is out! New features include the following:
 
-1. Added a new form generator. Generator uses [react-hook-form](https://react-hook-form.com/) package to generate forms.
-2. Form generator supports both typescript and javascript
-3. Optional form context wrapper
-4. Per field form validation configuration
-5. Configurable validation modes (onChange, onBlur...)
-6. Per field choice between selects, inputs, checkboxes, radios and textareas
-7. Default or named exports
-8. Include or exclude index file
+1. Extended configuration files to support form configurations
+2. Code improvements
 
-The form generation feature is finally introduced in this version of react-igniter! Now you are able to create forms with [react-hook-form](https://react-hook-form.com/) with per field configurations for field type and field validation. The **v1.1.X** versions of react-igniter will be focused on new form generation features. Roadmap will be updated accordingly!
+Configuration for react igniter now allows you to shorten the whole process by predefining answers.
+
+The form generation feature is finally introduced in version 1.1.0 of react-igniter! Now you are able to create forms with [react-hook-form](https://react-hook-form.com/) with per field configurations for field type and field validation. The **v1.1.X** versions of react-igniter will be focused on new form generation features. Roadmap will be updated accordingly!
 
 ## What does it generate?
 
@@ -88,6 +84,7 @@ React forms generator supports the following features:
 - Choosing validation mode and revalidation mode
 - Choosing export type
 - Choosing to include the index file or not
+- Editing default configuration
 
 After all these have been selected each field offers the following features:
 
@@ -136,7 +133,8 @@ Our vision with this package is to speed up the every day development process an
 
 ## Feature roadmap
 
-- Adding new configuration options for form generator to speed up the generation process
+- Adding new configuration options for form generator to speed up the generation process ✔
+- Adding `form` shortcut for easier access
 - Adding Control component option to form generator
 - Adding yup validation as an option
 - Adding inputArray option with **useFieldArray** hook

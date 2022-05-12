@@ -32,7 +32,7 @@ const formGenerator = async ({
   exportType,
 }: FormGeneratorArguments) => {
   const finalName = uppercaseFirstLetter(name);
-  const outputPath = path.join(output ?? process.cwd(), finalName);
+  const outputPath = path.join(process.cwd(), output ?? "", finalName);
 
   fs.mkdirSync(outputPath, { recursive: true });
   fs.writeFileSync(
@@ -44,7 +44,8 @@ const formGenerator = async ({
       withContext,
       withValidation,
       validationMode,
-      revalidationMode
+      revalidationMode,
+      exportType
     )
   );
   if (includeIndex) {
