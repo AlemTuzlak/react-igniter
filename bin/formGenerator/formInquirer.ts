@@ -62,7 +62,10 @@ interface FormInquirerAnswers {
   includeIndex: boolean;
 }
 
-export const formInquirer = async (config?: DefaultConfigType) => {
+export const formInquirer = async (
+  config?: DefaultConfigType,
+  name?: string
+) => {
   try {
     await installDependency("react-hook-form");
   } catch (err) {
@@ -73,6 +76,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
       type: "input",
       name: "name",
       message: "Enter form name:",
+      when: !name,
       validate: (value) => {
         return value?.trim() !== ""
           ? true
@@ -226,7 +230,6 @@ export const formInquirer = async (config?: DefaultConfigType) => {
   const finalFields: Field[] = [];
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i];
-    console.log(config?.form.withValidation, answers.withValidation);
     const fieldAnswers = await inquirer.prompt<FormFieldAnswers>([
       {
         type: "list",
@@ -317,7 +320,7 @@ export const formInquirer = async (config?: DefaultConfigType) => {
   }
 
   const finalOutput = {
-    name: removeWhitespace(answers.name),
+    name: removeWhitespace(name ? name : answers.name),
     fields: finalFields,
     typescript:
       config?.form?.type !== undefined

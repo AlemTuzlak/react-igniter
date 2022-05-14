@@ -39,6 +39,28 @@ yargs
     }
   )
   .command(
+    "form [name]",
+    "Generate a new component",
+    (yargs) => {
+      yargs.option("i", {
+        alias: "ignore-config",
+        describe: "Ignore config file",
+        type: "boolean",
+        default: false,
+      });
+    },
+    async (argv) => {
+      let config: DefaultConfigType | undefined;
+      try {
+        config = await getConfigFile();
+      } catch (err) {}
+      await formInquirer(
+        argv.i ? undefined : config,
+        argv.name as string | undefined
+      );
+    }
+  )
+  .command(
     "router",
     "Generate a router",
     (yargs) => {

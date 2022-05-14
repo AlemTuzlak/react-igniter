@@ -1,5 +1,15 @@
 # react-igniter
 
+![GitHub Repo stars](https://img.shields.io/github/stars/AlemTuzlak/react-igniter?style=social)
+![npm](https://img.shields.io/npm/v/react-igniter?style=plastic)
+![GitHub](https://img.shields.io/github/license/AlemTuzlak/react-igniter?style=plastic)
+![npm](https://img.shields.io/npm/dy/react-igniter?style=plastic)
+![GitHub issues](https://img.shields.io/github/issues/AlemTuzlak/react-igniter?style=plastic)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/AlemTuzlak/react-igniter?style=plastic)
+![GitHub last commit](https://img.shields.io/github/last-commit/AlemTuzlak/react-igniter?style=plastic)
+![GitHub top language](https://img.shields.io/github/languages/top/AlemTuzlak/react-igniter?style=plastic)
+![CodeQL](https://github.com/AlemTuzlak/react-igniter/workflows/CodeQL/badge.svg?style=plastic)
+
 Welcome to **react-igniter**!
 <img src="./react-igniter.png" align="right" height="120px">
 
@@ -11,12 +21,10 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release **v1.1.2** is out! New features include the following:
+Release **v1.1.3** is out! New features include the following:
 
-1. Extended configuration files to support form configurations
-2. Code improvements
-
-Configuration for react igniter now allows you to shorten the whole process by predefining answers.
+1. Bug fixes & code quality improvements
+2. React form shortcut `rig form [name]`
 
 The form generation feature is finally introduced in version 1.1.0 of react-igniter! Now you are able to create forms with [react-hook-form](https://react-hook-form.com/) with per field configurations for field type and field validation. The **v1.1.X** versions of react-igniter will be focused on new form generation features. Roadmap will be updated accordingly!
 
@@ -108,6 +116,7 @@ To ignore your default configuration settings run any of the generators with the
 - `rig router` - Shortcut for getting into the router creation command
 - `rig api` - Shortcut for getting into the api creation command
 - `rig config` - Shortcut for getting into the config creation command
+- `rig form [name]` - Shortcut for getting into form creation command, optional name parameter, if provided the name will be set to the provided parameter
 
 ## How to get it up and running?
 

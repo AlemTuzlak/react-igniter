@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] - 15.05.2022.
+
+### Added
+
+- `rig form [name]` shortcut
+- unit tests for api component generation
+- jest & ts-jest dev dependencies
+- jest configuration for the project
+- readme badges
+
+### Changed
+
+- API generator for javascript bug fixed
+- Tsconfig output exclusions for tests
+- Lowered package size
+
+### Removed
+
+- Extra console log
+
 ## [1.1.2] - 13.05.2022.
 
 ### Added

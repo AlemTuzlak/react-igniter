@@ -1,4 +1,4 @@
-const BaseApiTS = (apiPrefix: string = '') => {
+const BaseApiTS = (apiPrefix: string = "") => {
   return [
     `import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';`,
     ...(apiPrefix ? [`const apiPrefix = '${apiPrefix}'`] : []),
@@ -6,7 +6,9 @@ const BaseApiTS = (apiPrefix: string = '') => {
     `abstract class BaseApi {`,
     `  protected readonly instance: AxiosInstance;`,
     ``,
-    `  public constructor(config: AxiosRequestConfig = {baseURL: \`\${apiPrefix}\`}) {`,
+    `  public constructor(config: AxiosRequestConfig = {baseURL: \`${
+      apiPrefix ? `\${apiPrefix}` : ""
+    }\`}) {`,
     `    this.instance = axios.create(config);`,
     ``,
     `    this._initializeResponseInterceptor();`,
@@ -31,18 +33,20 @@ const BaseApiTS = (apiPrefix: string = '') => {
     `  }`,
     `}`,
     ``,
-    `export { BaseApi${apiPrefix ? ', apiPrefix' : ''} };`,
-    ``
-  ].join('\n');
-}
-const BaseApiJS = (apiPrefix: string = '') => {
+    `export { BaseApi${apiPrefix ? ", apiPrefix" : ""} };`,
+    ``,
+  ].join("\n");
+};
+const BaseApiJS = (apiPrefix: string = "") => {
   return [
     `import axios from 'axios';`,
     ...(apiPrefix ? [`const apiPrefix = '${apiPrefix}'`] : []),
     ``,
     `class BaseApi {`,
     ``,
-    `  constructor(config = {baseURL: \`\${apiPrefix}\`}) {`,
+    `  constructor(config = {baseURL: \`${
+      apiPrefix ? `\${apiPrefix}` : ""
+    }\`}) {`,
     `    this.instance = axios.create(config);`,
     ``,
     `    this._initializeResponseInterceptor();`,
@@ -67,8 +71,8 @@ const BaseApiJS = (apiPrefix: string = '') => {
     `  }`,
     `}`,
     ``,
-    `export { BaseApi${apiPrefix ? ', apiPrefix' : ''} };`,
-    ``
-  ].join('\n');
-}
-export { BaseApiTS, BaseApiJS }
+    `export { BaseApi${apiPrefix ? ", apiPrefix" : ""} };`,
+    ``,
+  ].join("\n");
+};
+export { BaseApiTS, BaseApiJS };
