@@ -102,5 +102,6 @@
     "./bin/**/*.test.ts",
     "./build/**/*",
     "./bin/mocks/**/*",
+    "./jest.config.ts",
   ]
 }

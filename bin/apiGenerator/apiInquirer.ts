@@ -1,6 +1,8 @@
+import path from "path";
 import { DefaultConfigType } from "../configGenerator/DefaultConfig";
 import { inquirer } from "../helpers/inquirerInstance";
 import { installDependency } from "../helpers/installDependency";
+import { sanitizeOutputDirectory } from "../helpers/sanitizeOutputDirectory";
 import { apiGenerator, ApiGeneratorArguments } from "./apiGenerator";
 
 interface ApiInquirerAnswers {
@@ -18,7 +20,7 @@ export const apiInquirer = async (config?: DefaultConfigType) => {
   } catch (err) {
     return;
   }
-
+  const rootDir = path.join(process.cwd(), config?.api?.rootDir ?? "");
   const { init, output, crud, prefix, submodules, typescript } =
     await inquirer.prompt<ApiInquirerAnswers>([
       {
@@ -80,13 +82,16 @@ export const apiInquirer = async (config?: DefaultConfigType) => {
         type: "file-tree-selection",
         name: "output",
         message: "Select output directory.",
-        root: process.cwd(),
+        root: rootDir,
         onlyShowDir: true,
       },
     ]);
+
+  const outputDir = sanitizeOutputDirectory(output, rootDir);
+
   const generatorArgs: ApiGeneratorArguments = {
     init: config?.api?.init ?? init,
-    output: output.replace(process.cwd(), ""),
+    output: outputDir.replace(process.cwd(), ""),
     crud: config?.api?.crud ?? crud,
     prefix: config?.api?.prefix ?? prefix,
     submodules: submodules.trim().split(" "),

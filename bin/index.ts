@@ -32,6 +32,12 @@ yargs
       try {
         config = await getConfigFile();
       } catch (err) {}
+      if (config?.component?.disabled) {
+        console.log(
+          chalk.bold.red("Component generation is disabled in the config file!")
+        );
+        return;
+      }
       await componentInquirer(
         argv.i ? undefined : config,
         argv.name as string | undefined
@@ -40,7 +46,7 @@ yargs
   )
   .command(
     "form [name]",
-    "Generate a new component",
+    "Generate a new form",
     (yargs) => {
       yargs.option("i", {
         alias: "ignore-config",
@@ -54,6 +60,12 @@ yargs
       try {
         config = await getConfigFile();
       } catch (err) {}
+      if (config?.form?.disabled) {
+        console.log(
+          chalk.bold.red("Form generation is disabled in the config file!")
+        );
+        return;
+      }
       await formInquirer(
         argv.i ? undefined : config,
         argv.name as string | undefined
@@ -76,6 +88,12 @@ yargs
       try {
         config = await getConfigFile();
       } catch (err) {}
+      if (config?.router?.disabled) {
+        console.log(
+          chalk.bold.red("Router generation is disabled in config file!")
+        );
+        return;
+      }
       await routeInquirer(argv.i ? undefined : config);
     }
   )
@@ -95,6 +113,12 @@ yargs
       try {
         config = await getConfigFile();
       } catch (err) {}
+      if (config?.api?.disabled) {
+        console.log(
+          chalk.bold.red(`API generation is disabled in the config file!`)
+        );
+        return;
+      }
       await apiInquirer(argv.i ? undefined : config);
     }
   )
@@ -107,6 +131,7 @@ yargs
       try {
         config = await getConfigFile();
       } catch (err) {}
+
       if (config?.version !== DefaultConfig.version || !config) {
         await configGenerator(config);
       } else {
@@ -158,16 +183,44 @@ yargs
           message: "What do you want to do?",
           default: "component",
           choices: [
-            { name: "1. Create Component", value: "component" },
-            { name: "2. Create Router", value: "router" },
-            { name: "3. Create Api(s)", value: "api" },
-            { name: "4. Create Form", value: "form" },
+            ...(config?.component?.disabled
+              ? []
+              : [
+                  {
+                    name: `Create ${chalk.greenBright("Component")}`,
+                    value: "component",
+                  },
+                ]),
+            ...(config?.router?.disabled
+              ? []
+              : [
+                  {
+                    name: `Create ${chalk.greenBright("Router")}`,
+                    value: "router",
+                  },
+                ]),
+            ...(config?.api?.disabled
+              ? []
+              : [
+                  {
+                    name: `Create ${chalk.greenBright("API(s)")}`,
+                    value: "api",
+                  },
+                ]),
+            ...(config?.form?.disabled
+              ? []
+              : [
+                  {
+                    name: `Create ${chalk.greenBright("Form")}`,
+                    value: "form",
+                  },
+                ]),
             ...(config?.version !== DefaultConfig.version || !config
               ? [
                   {
                     name: config
-                      ? "5. Update configuration"
-                      : "5. Initialize configuration",
+                      ? "Update configuration"
+                      : "Initialize configuration",
                     value: "config",
                   },
                 ]

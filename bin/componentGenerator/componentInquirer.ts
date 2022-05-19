@@ -1,6 +1,8 @@
+import path from "path";
 import { DefaultConfigType } from "../configGenerator/DefaultConfig";
 import { inquirer } from "../helpers/inquirerInstance";
 import { installDependency } from "../helpers/installDependency";
+import { sanitizeOutputDirectory } from "../helpers/sanitizeOutputDirectory";
 import {
   componentGenerator,
   ComponentGeneratorArguments,
@@ -21,6 +23,7 @@ export const componentInquirer = async (
   config?: DefaultConfigType,
   componentName?: string
 ) => {
+  const rootDir = path.join(process.cwd(), config?.component?.rootDir ?? "");
   const {
     test,
     typescript,
@@ -118,7 +121,7 @@ export const componentInquirer = async (
       type: "file-tree-selection",
       name: "output",
       message: "Select output directory.",
-      root: process.cwd(),
+      root: rootDir,
       onlyShowDir: true,
     },
   ]);
@@ -133,11 +136,14 @@ export const componentInquirer = async (
       return;
     }
   }
+
+  const outputDir = sanitizeOutputDirectory(output, rootDir);
+
   const generatorArgs: ComponentGeneratorArguments = {
     name: componentName ?? name,
     test: config?.component?.test ?? test,
     style: config?.component?.style ?? style,
-    output: output.replace(process.cwd(), ""),
+    output: outputDir.replace(process.cwd(), ""),
     exportType: config?.component?.exportType ?? exportType,
     translations: config?.component?.translations ?? translations,
     typescript:

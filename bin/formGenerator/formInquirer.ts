@@ -1,8 +1,10 @@
 import chalk from "chalk";
+import path from "path";
 import { DefaultConfigType } from "../configGenerator/DefaultConfig";
 import { inquirer } from "../helpers/inquirerInstance";
 import { installDependency } from "../helpers/installDependency";
 import { removeWhitespace } from "../helpers/removeWhitespace";
+import { sanitizeOutputDirectory } from "../helpers/sanitizeOutputDirectory";
 import { formGenerator } from "./formGenerator";
 
 export type ValidationMode =
@@ -71,6 +73,7 @@ export const formInquirer = async (
   } catch (err) {
     return;
   }
+  const rootDir = path.join(process.cwd(), config?.form?.rootDir ?? "");
   const answers = await inquirer.prompt<FormInquirerAnswers>([
     {
       type: "input",
@@ -211,7 +214,7 @@ export const formInquirer = async (
       type: "file-tree-selection",
       name: "output",
       message: "Select output directory.",
-      root: process.cwd(),
+      root: rootDir,
       onlyShowDir: true,
     },
     {
@@ -319,6 +322,8 @@ export const formInquirer = async (
     });
   }
 
+  const outputDir = sanitizeOutputDirectory(answers.output, rootDir);
+
   const finalOutput = {
     name: removeWhitespace(name ? name : answers.name),
     fields: finalFields,
@@ -332,7 +337,7 @@ export const formInquirer = async (
     revalidationMode: (config?.form?.revalidationMode ??
       answers.revalidationMode) as RevalidationMode,
     includeIndex: config?.form?.includeIndex ?? answers.includeIndex,
-    output: answers.output.replace(process.cwd(), ""),
+    output: outputDir.replace(process.cwd(), ""),
     withContext: config?.form?.withContext ?? answers.withContext,
     exportType: config?.form?.exportType ?? answers.exportType,
   };

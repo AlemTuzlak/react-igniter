@@ -3,6 +3,8 @@ import { routeGenerator, RouterGeneratorArguments } from "./routeGenerator";
 import { getPackageJson } from "../helpers/getPackageJson";
 import { installDependency } from "../helpers/installDependency";
 import { inquirer } from "../helpers/inquirerInstance";
+import path from "path";
+import { sanitizeOutputDirectory } from "../helpers/sanitizeOutputDirectory";
 interface RouterInquirerAnswers {
   name: string;
   main: boolean;
@@ -34,7 +36,7 @@ export const routeInquirer = async (config?: DefaultConfigType) => {
       return;
     }
   }
-
+  const rootDir = path.join(process.cwd(), config?.router?.rootDir ?? "");
   const { name, main, typescript, routes, withTabs, output } =
     await inquirer.prompt<RouterInquirerAnswers>([
       {
@@ -96,11 +98,12 @@ export const routeInquirer = async (config?: DefaultConfigType) => {
         type: "file-tree-selection",
         name: "output",
         message: "Select output directory.",
-        root: process.cwd(),
+        root: rootDir,
         onlyShowDir: true,
       },
     ]);
 
+  const outputDir = sanitizeOutputDirectory(output, rootDir);
   const generatorArgs: RouterGeneratorArguments = {
     name: name,
     routes: routes.trim().split(" "),
@@ -111,7 +114,7 @@ export const routeInquirer = async (config?: DefaultConfigType) => {
         : typescript,
     withTabs: config?.router?.withTabs ?? withTabs,
     ver: version,
-    output: output.replace(process.cwd(), ""),
+    output: outputDir.replace(process.cwd(), ""),
   };
 
   await routeGenerator(generatorArgs);

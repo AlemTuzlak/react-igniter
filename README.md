@@ -21,10 +21,10 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release **v1.1.3** is out! New features include the following:
+Release **v1.1.4** is out! New features include the following:
 
-1. Bug fixes & code quality improvements
-2. React form shortcut `rig form [name]`
+1. Added rootDir option for each generator
+2. Added option to disable generators using configuration
 
 The form generation feature is finally introduced in version 1.1.0 of react-igniter! Now you are able to create forms with [react-hook-form](https://react-hook-form.com/) with per field configurations for field type and field validation. The **v1.1.X** versions of react-igniter will be focused on new form generation features. Roadmap will be updated accordingly!
 
