@@ -35,14 +35,14 @@ const ComponentFile = (
   };
 
   const Component = [
-    `import React${typescript ? `, { FC }` : ""} from 'react';`,
+    `import React from 'react';`,
     ...(translations
       ? ["import { useTranslation } from 'react-i18next';"]
       : []),
     `${generateStylingImport(styling)}`,
     "",
     ...(typescript ? [`interface ${name}Props {`, `  `, `}`, ``] : []),
-    `const ${name}${typescript ? `: FC<${name}Props>` : ``} = () => {`,
+    `const ${name} = ({}${typescript ? `: ${name}Props` : ""}) => {`,
     ...(translations ? ["  const { t } = useTranslation();"] : []),
     `  return (`,
     ...generateStyledComponent(styling),

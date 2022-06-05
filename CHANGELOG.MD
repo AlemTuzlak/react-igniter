@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.5] - 05.06.2022.
+
+### Added
+
+- Yup validation for react-hook-form
+- Yup types to form generator field selection options
+- Selection between `default` and `yup` validation
+- Able to create all sorts of yup constraints
+
+### Changed
+
+- Removed `FC` from component generator
+- Removed `FC` from form generator
+- Removed `FC` from route generator
+
 ## [1.1.4] - 19.05.2022.
 
 ### Added

@@ -1,5 +1,5 @@
 export const DefaultConfig = {
-  version: "1.1.4",
+  version: "1.1.5",
   component: {
     type: "typescript",
     test: true,
@@ -8,7 +8,7 @@ export const DefaultConfig = {
     exportType: "named", // "named" , "default"
     includeIndex: true,
     translations: false,
-    rootDir: "src",
+    rootDir: "",
     disabled: false,
   },
   api: {
@@ -16,14 +16,14 @@ export const DefaultConfig = {
     init: true,
     crud: true,
     prefix: "",
-    rootDir: "src",
+    rootDir: "",
     disabled: false,
   },
   router: {
     main: true,
     type: "typescript",
     withTabs: false,
-    rootDir: "src",
+    rootDir: "",
     disabled: false,
   },
   form: {
@@ -34,8 +34,9 @@ export const DefaultConfig = {
     revalidationMode: "onChange", // "onChange", "onBlur", "onSubmit"
     exportType: "named", // "named" , "default"
     includeIndex: true,
-    rootDir: "src",
+    rootDir: "",
     disabled: false,
+    validationType: "default", // "default", "yup"
   },
 };
 

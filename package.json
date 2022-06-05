@@ -1,6 +1,6 @@
 {
   "name": "react-igniter",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "CLI for creating react components",
   "main": "build/index.js",
   "dependencies": {

@@ -21,10 +21,13 @@ React-igniter is a lightweight command line interface designed to help you in yo
 
 ## What is new?
 
-Release **v1.1.4** is out! New features include the following:
+Release **v1.1.5** is out! New features include the following:
 
-1. Added rootDir option for each generator
-2. Added option to disable generators using configuration
+1. Added yup validation
+2. Removed `FC` from generators
+3. Improved the validation flow
+4. Added validation type selection between the `default` and `yup`
+5. Default path in config files changed from `src` to ``
 
 The form generation feature is finally introduced in version 1.1.0 of react-igniter! Now you are able to create forms with [react-hook-form](https://react-hook-form.com/) with per field configurations for field type and field validation. The **v1.1.X** versions of react-igniter will be focused on new form generation features. Roadmap will be updated accordingly!
 
@@ -89,6 +92,7 @@ React forms generator supports the following features:
 - Output directory of the form
 - Adding a list of fields that the form will have
 - Choosing if the form should have validation or not
+- Choosing between react-hook-form default validation or `yup`
 - Choosing validation mode and revalidation mode
 - Choosing export type
 - Choosing to include the index file or not
@@ -98,6 +102,7 @@ After all these have been selected each field offers the following features:
 
 - Selecting the type of component (input, textarea, checkbox, radio, select)
 - If the input component is selected you can choose the subtype (email, password, url, date, datetime, text...)
+- If yup is selected you can choose the yup type of the field (string, boolean, date, number, array, object, mixed)
 - If form is validated you can choose validation rules (required, min, max, regex, custom, minLength, maxLength)
 
 After all the options have been chosen the form will be generated.
@@ -143,9 +148,9 @@ Our vision with this package is to speed up the every day development process an
 ## Feature roadmap
 
 - Adding new configuration options for form generator to speed up the generation process ✔
-- Adding `form` shortcut for easier access
+- Adding `form` shortcut for easier access ✔
 - Adding Control component option to form generator
-- Adding yup validation as an option
+- Adding yup validation as an option ✔
 - Adding inputArray option with **useFieldArray** hook
 - Streamlining the generation process and improving the UX
 - Adding some behind the scenes features to improve the generator (default validators for subtypes etc.)

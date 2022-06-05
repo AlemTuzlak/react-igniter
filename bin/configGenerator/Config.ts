@@ -48,6 +48,7 @@ export const Config = (ConfigObject: DefaultConfigType) => {
     `    includeIndex: ${form.includeIndex}, // Should an index file be generated, boolean value, [true, false]`,
     `    rootDir: "${form.rootDir}", // The root directory of the project, string value, defaults to "src"`,
     `    disabled: ${form.disabled}, // Should the form generation be disabled, boolean value, [true, false]`,
+    `    validationType: "${form.validationType}", // Validation type, string value, ["yup", "default"]`,
     `  },`,
     "}",
     "",

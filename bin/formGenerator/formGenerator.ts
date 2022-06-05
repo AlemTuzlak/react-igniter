@@ -2,7 +2,12 @@ import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 import { uppercaseFirstLetter } from "../helpers/uppercaseFirstLetter";
-import { Field, RevalidationMode, ValidationMode } from "./formInquirer";
+import {
+  Field,
+  RevalidationMode,
+  ValidationMode,
+  ValidationType,
+} from "./formInquirer";
 import { Form } from "./outputFiles/Form";
 import { indexFile } from "./outputFiles/indexFile";
 
@@ -17,6 +22,7 @@ export interface FormGeneratorArguments {
   fields: Field[];
   exportType: string;
   includeIndex: boolean;
+  validationType: ValidationType;
 }
 
 const formGenerator = async ({
@@ -30,6 +36,7 @@ const formGenerator = async ({
   fields,
   includeIndex,
   exportType,
+  validationType,
 }: FormGeneratorArguments) => {
   const finalName = uppercaseFirstLetter(name);
   const outputPath = path.join(process.cwd(), output ?? "", finalName);
@@ -45,7 +52,8 @@ const formGenerator = async ({
       withValidation,
       validationMode,
       revalidationMode,
-      exportType
+      exportType,
+      validationType
     )
   );
   if (includeIndex) {

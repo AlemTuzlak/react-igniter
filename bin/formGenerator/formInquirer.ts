@@ -6,6 +6,8 @@ import { installDependency } from "../helpers/installDependency";
 import { removeWhitespace } from "../helpers/removeWhitespace";
 import { sanitizeOutputDirectory } from "../helpers/sanitizeOutputDirectory";
 import { formGenerator } from "./formGenerator";
+import { defaultValidationQuestions } from "./validationQuestions/default";
+import { yupValidationQuestions } from "./validationQuestions/yup";
 
 export type ValidationMode =
   | "onBlur"
@@ -39,10 +41,14 @@ export type ValidationOption =
   | "maxLength"
   | "pattern"
   | "validate";
-interface FormFieldAnswers {
+
+export type ValidationType = "default" | "yup";
+export interface FormFieldAnswers {
   type: FormComponentType;
   inputType?: InputType;
   validation?: ValidationOption[];
+  yupType?: string;
+  yupValidation?: string[];
   minNumber?: number;
   maxNumber?: number;
   minLengthNumber?: number;
@@ -51,7 +57,7 @@ interface FormFieldAnswers {
 export interface Field extends FormFieldAnswers {
   name: string;
 }
-interface FormInquirerAnswers {
+export interface FormInquirerAnswers {
   name: string;
   withContext: boolean;
   withValidation: boolean;
@@ -62,6 +68,7 @@ interface FormInquirerAnswers {
   typescript: boolean;
   exportType: string;
   includeIndex: boolean;
+  validationType: ValidationType;
 }
 
 export const formInquirer = async (
@@ -73,6 +80,7 @@ export const formInquirer = async (
   } catch (err) {
     return;
   }
+
   const rootDir = path.join(process.cwd(), config?.form?.rootDir ?? "");
   const answers = await inquirer.prompt<FormInquirerAnswers>([
     {
@@ -139,6 +147,20 @@ export const formInquirer = async (
       choices: [
         { name: "Yes", value: true },
         { name: "No", value: false },
+      ],
+    },
+    {
+      type: "list",
+      name: "validationType",
+      message: "What validation mode do you want to use?",
+      default: "default",
+      when: (ans) =>
+        (config?.form?.validationType === undefined &&
+          (config?.form?.withValidation ?? ans.withValidation)) ??
+        false,
+      choices: [
+        { name: "default", value: "default" },
+        { name: "yup", value: "yup" },
       ],
     },
     {
@@ -229,6 +251,15 @@ export const formInquirer = async (
     },
   ]);
 
+  const validationType = config?.form?.validationType ?? answers.validationType;
+  if (validationType !== "default") {
+    try {
+      await installDependency("@hookform/resolvers");
+      await installDependency(validationType);
+    } catch (err) {
+      return;
+    }
+  }
   const fields = answers.fields.trim().split(" ");
   const finalFields: Field[] = [];
   for (let i = 0; i < fields.length; i++) {
@@ -266,54 +297,10 @@ export const formInquirer = async (
           { value: "password", name: "Password" },
         ],
       },
-      {
-        type: "checkbox",
-        name: "validation",
-        when:
-          config?.form?.withValidation === true ||
-          answers.withValidation === true,
-        choices: [
-          { value: "required", name: "Required" },
-          { value: "min", name: "Min" },
-          { value: "max", name: "Max" },
-          { value: "minLength", name: "Min Length" },
-          { value: "maxLength", name: "Max Length" },
-          { value: "pattern", name: "Regex" },
-          { value: "validate", name: "Custom validation" },
-        ],
-      },
-      {
-        type: "input",
-        when: (ans) => ans.validation?.includes("min"),
-        name: "minNumber",
-        default: 1,
-        message: "What is the minimum value for this input?",
-        validate: (val) => (!isNaN(val) ? true : "Must be a number"),
-      },
-      {
-        type: "input",
-        when: (ans) => ans.validation?.includes("max"),
-        name: "maxNumber",
-        default: 255,
-        message: "What is the maximum value for this input?",
-        validate: (val) => (!isNaN(val) ? true : "Must be a number"),
-      },
-      {
-        type: "input",
-        when: (ans) => ans.validation?.includes("minLength"),
-        name: "minLengthNumber",
-        default: 1,
-        message: "What is the minimum length of this input?",
-        validate: (val) => (!isNaN(val) ? true : "Must be a number"),
-      },
-      {
-        type: "input",
-        when: (ans) => ans.validation?.includes("maxLength"),
-        name: "maxLengthNumber",
-        default: 255,
-        message: "What is the maximum length of this input?",
-        validate: (val) => (!isNaN(val) ? true : "Must be a number"),
-      },
+      ...(validationType === "default"
+        ? (defaultValidationQuestions(answers, config) as [])
+        : []),
+      ...(validationType === "yup" ? (yupValidationQuestions() as []) : []),
     ]);
 
     finalFields.push({
@@ -340,6 +327,9 @@ export const formInquirer = async (
     output: outputDir.replace(process.cwd(), ""),
     withContext: config?.form?.withContext ?? answers.withContext,
     exportType: config?.form?.exportType ?? answers.exportType,
+    validationType:
+      (config?.form?.validationType as ValidationType) ??
+      answers.validationType,
   };
 
   await formGenerator(finalOutput);
